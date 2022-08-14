@@ -17,9 +17,9 @@ import org.springframework.web.context.annotation.SessionScope;
 @Getter
 @Setter
 @Slf4j
-//@RequestScope
-//@SessionScope
-@ApplicationScope
+//@RequestScope  - creates bean for every HTTP request
+//@SessionScope  - Creates bean for every session ( like users - chrome, microsoft edge)
+@ApplicationScope // creates only one bean for entire application
 public class VehicleService {
 
     int counter=0;
@@ -35,30 +35,8 @@ public class VehicleService {
      log.info("Called samp function");
      return "Hey hi";
     }
-
-//    field style autowiring
-    @Autowired()
-    public  Speakers speakers;
-    public Tyres tyres;
-
-
-
-//    setter style of autowiring ( method style)
-    @Autowired
-    public void setTyres(Tyres tyres) {
-        this.tyres = tyres;
-    }
-
-    public void playMusic()
-    {
-        String sound = speakers.playMusic();
-        System.out.println(sound);
-    }
-
-
-    public void moveCar()
-    {
-        String tyre = tyres.rotate();
-        System.out.println(tyre);
-    }
 }
+
+
+// application scope and singleton objects creates only one bean, but the differnce is we can have multiple contexts paths in single application, so that we can generate multiple beans using singleton also
+//  but application scope irrespective of number of contexts, it will create only one bean for one application.
